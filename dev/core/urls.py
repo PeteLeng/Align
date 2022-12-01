@@ -15,5 +15,6 @@ urlpatterns = [
     path('act/<int:pk>/', views.ActionUpdateView.as_view(), name='act-detail'),
     path('act/<int:pk>/update/', views.ActionUpdateView.as_view(), name='act-update'),
     path('act/<int:pk>/delete/', views.ActionDeleteView.as_view(), name='act-delete'),
+    path('files', views.FileListView.as_view(), name = 'files'),
 ]
 

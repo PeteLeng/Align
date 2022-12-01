@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load core_tags %}
+
+{% block content %}
+
+<h1 style="text-align: left; padding-top: 1em; padding-bottom: 0em;">Open actions overview:</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th scope="col">No.</th>
+        <th scope="col">Description</th>
+        <th scope="col">Visibility</th>
+        <th scope="col">Tags</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">Start Time</th>
+        <th scope="col">End Date</th>
+        <th scope="col">End Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for act in open_act_set %}
+    <tr>
+      <th scope="row">{{ proj.id }}</th>
+        <td>{{ act.description }}</td>
+        <td>{{ act.visibility|show_visibility }}</td>
+        <td>{{ act.get_tag_str }}</td>
+        <td>{{ act.start_date }}</td>
+        <td>{{ act.start_time }}</td>
+        <td>{{ act.end_date }}</td>
+        <td>{{ act.end_time }}</td>
+      <td>
+        <a style="margin-right: 30px;" href="{% url 'act-update' act.id %}">Edit</a>
+        <a href="{% url 'act-delete' act.id %}">Remove</a> 
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h1 style="text-align: left; padding-top: 1em; padding-bottom: 0em;">Closed actions overview:</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th scope="col">No.</th>
+        <th scope="col">Description</th>
+        <th scope="col">Visibility</th>
+        <th scope="col">Tags</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">Start Time</th>
+        <th scope="col">End Date</th>
+        <th scope="col">End Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for act in closed_act_set %}
+    <tr>
+      <th scope="row">{{ proj.id }}</th>
+        <td>{{ act.description }}</td>
+        <td>{{ act.visibility }}</td>
+        <td>{{ act.get_tag_str }}</td>
+        <td>{{ act.start_date }}</td>
+        <td>{{ act.start_time }}</td>
+        <td>{{ act.end_date }}</td>
+        <td>{{ act.end_time }}</td>
+      <td>
+        <a style="margin-right: 30px;" href="{% url 'act-update' act.id %}">Edit</a>
+        <a href="{% url 'act-delete' act.id %}">Remove</a> 
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br></br>
+<div class="text-center">
+  <a href="{% url 'home' %}"><button type="button" class="btn btn-primary">Homepage</button></a>
+</div>
+
+{% endblock content %}

@@ -43,9 +43,23 @@ class Project(models.Model):
         user_set = self.users.all()
         return [user.username for user in user_set]
 
+    def get_user_str(self):
+        user_list = self.get_user_list()
+        if len(user_list) > 3:
+            return ", ".join(user_list[:3]) + "..."
+        else:
+            return ", ".join(user_list)
+
     def get_tag_list(self):
         tag_set = self.tags.all()
         return [tag.name for tag in tag_set]
+
+    def get_tag_str(self):
+        tag_list = self.get_tag_list()
+        if len(tag_list) > 3:
+            return ", ".join(tag_list[:3]) + "..."
+        else:
+            return " ".join(tag_list)
     
     
 class Action(models.Model):
@@ -60,6 +74,7 @@ class Action(models.Model):
     description = models.TextField()
     visibility = models.BooleanField(default=False, choices=VISIBILITY_CHOICES)
     status = models.BooleanField(default=True, choices=STATUS_CHOICES)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     start_date = models.DateField(null=True, blank=True)
     start_time = models.TimeField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
@@ -68,4 +83,15 @@ class Action(models.Model):
     p_action = models.ForeignKey('self', on_delete=models.CASCADE, verbose_name="parent action", null=True, blank=True)
     files = models.ManyToManyField(File, verbose_name="Action files", blank=True) # form to upload or choose file
     tags = models.ManyToManyField(Tag, verbose_name="Action tags", blank=True)
+
+    def get_tag_list(self):
+        tag_set = self.tags.all()
+        return [tag.name for tag in tag_set]
+
+    def get_tag_str(self):
+        tag_list = self.get_tag_list()
+        if len(tag_list) > 3:
+            return ", ".join(tag_list[:3]) + "..."
+        else:
+            return " ".join(tag_list)
     

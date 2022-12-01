@@ -1,34 +1,82 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load core_tags %}
 
-<h1 style="text-align: left; padding-top: 1em; padding-bottom: 0em;">Project overview:</h1>
+<h1 style="text-align: left; padding-top: 1em; padding-bottom: 0em;">Open projects overview:</h1>
+<div style = "position:relative;
+    height: 15em;
+    overflow-y: auto;    
+    overflow-x: hidden;">
 
 <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">No.</th>
       <th scope="col">Description</th>
+      <th scope="col">Visibility</th>
       <th scope="col">Team members</th>
-      <th scope="col">Status</th>
       <th scope="col">Tags</th>
     </tr>
   </thead>
   <tbody>
-    {% for proj in proj_set %}
+    {% for proj in open_proj_set %}
     <tr>
       <th scope="row">{{ proj.id }}</th>
       <td>{{ proj.description }}</td>
-      <td>{{ proj.get_user_list }}</td>
-      <td>{{ proj.status }}</td>
-      <td>{{ proj.get_tag_list }}</td>
+      <td>{{ proj.visibility|show_visibility }}</td>
+      <td>{{ proj.get_user_str }}</td>
+      <td>{{ proj.get_tag_str }}</td>
       <td>
         <a style="margin-right: 30px;" href="{% url 'proj-update' proj.id %}">Edit</a>
-        {# <a href="{% url 'proj-delete' proj.id %}">Remove</a> #}
+        <a href="{% url 'proj-delete' proj.id %}">Remove</a> 
       </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+
+</div>
+
+<h1 style="text-align: left; padding-top: 1em; padding-bottom: 0em;">Closed projects overview:</h1>
+
+<div style = "position:relative;
+    height: 15em;
+    overflow-y: auto;    
+    overflow-x: hidden;">
+  
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">No.</th>
+      <th scope="col">Description</th>
+      <th scope="col">Visibility</th>
+      <th scope="col">Team members</th>
+      <th scope="col">Tags</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for proj in closed_proj_set %}
+    <tr>
+      <th scope="row">{{ proj.id }}</th>
+      <td>{{ proj.description }}</td>
+      <td>{{ proj.visibility }}</td>
+      <td>{{ proj.get_user_str }}</td>
+      <td>{{ proj.get_tag_str }}</td>
+      <td>
+        <a style="margin-right: 30px;" href="{% url 'proj-update' proj.id %}">Edit</a>
+        <a href="{% url 'proj-delete' proj.id %}">Remove</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+
+<br></br>
+<div class="text-center">
+  <a href="{% url 'home' %}"><button type="button" class="btn btn-primary">Homepage</button></a>
+</div>
 
 {% endblock content %}

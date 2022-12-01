@@ -120,18 +120,42 @@ class ProjectListView(View):
     def get(self, request, *args, **kwargs):
         user = request.user
         proj_set = user.project_set.all()
+        open_proj_set = user.project_set.all().filter(status=True)
+        # print(open_act_set)
+        closed_proj_set = user.project_set.all().filter(status=False)
         context = {
             'user': user,
             'proj_set': proj_set,
+            'open_proj_set': open_proj_set,
+            'closed_proj_set' : closed_proj_set,
             }
         return render(request, self.template_name, context)
 
 
 class ActionListView(View):
     template_name = 'core/act_list.html'
+    
+    def get(self, request, *arg, **kwargs):
+        user = request.user
+        open_act_set = Action.objects.filter(user=user).filter(status=True)
+        closed_act_set = Action.objects.filter(user=user).filter(status=False)
+        context = {
+            'user': user,
+            'open_act_set': open_act_set,
+            'closed_act_set': closed_act_set,
+            }
+        return render(request, self.template_name, context)
 
-    def get(self, *arg, **kwargs):
-        pass
+
+class FileListView(View): 
+    template_name = 'core/file_list.html'
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        context = {
+            'user': user
+            }
+        return render(request, self.template_name, context)
 
 
 class ProjectCreateView(CreateView):
@@ -157,6 +181,13 @@ class ActionCreateView(CreateView):
     form_class = ActionForm
     template_name = 'core/act_new.html'
     success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        action = form.save(commit=False)
+        action.user = self.request.user
+        action.save()
+        form.save_m2m()
+        return redirect('home')
 
 
 class ActionUpdateView(UpdateView):

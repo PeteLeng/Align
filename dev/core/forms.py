@@ -24,10 +24,11 @@ class NewUserForm(UserCreationForm):
 class ProjectForm(ModelForm):
     class Meta:
         model = Project
-        fields = ('description', 'visibility', 'status', 'users', 'files', 'tags')
+        fields = ('description', 'visibility', 'status', 'users', 'tags')
 
 class ActionForm(ModelForm):
     class Meta:
         model = Action
-        fields = ('description', 'visibility', 'status', 'start_date', 'start_time', 'end_date', 'end_time', 'p_project', 'p_action', 'files', 'tags')
+        fields = ('description', 'visibility', 'status', 'start_date', 'start_time', 'end_date', 'end_time', 'p_project', 'p_action', 'tags')
+
 

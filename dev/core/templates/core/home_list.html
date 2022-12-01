@@ -5,19 +5,28 @@
 {% block content %}
 <h1 style="text-align: center; padding-top: 1em; padding-bottom: 1em;">Welcome back, {{ user.username }}</h1>
 
-{% block pubic-plist %}
-<h2 style="text-align: left">Public Projects:</h2>
-{% for proj in proj_set %}
-<li>{{ proj.description }}</li>
-{% endfor %}
-{% endblock %}
-
-{% block private-plist %}
-<h2 style="text-align: left">Public Projects:</h2>
-{% for proj in proj_set %}
-<li>{{ proj.description }}</li>
-{% endfor %}
-{% endblock %}
+<div class="sidebar" style = "height: 100%;
+			      width: 140px;
+			      position: fixed;z-index: 1;
+			      top: 0; left: 0; background-color: #333;
+			      overflow-x: hidden;
+			      padding-top: 20px ">
+  <a href="{% url 'projs' %}" style =  "padding: 6px 8px 6px 16px;
+					text-decoration: none;
+					font-sixe: 40px;
+					color: white;
+					display: block;"> Projects </a>
+  <a href="{% url 'acts' %}" style =  "padding: 6px 8px 6px 16px;
+				       text-decoration: none;
+				       font-sixe: 25px;
+				       color: white;
+				       display: block;"> Actions </a>
+  <a href="{% url 'files' %}"style =  "padding: 6px 8px 6px 16px;
+				       text-decoration: none;
+				       font-sixe: 25px;
+				       color: white;
+				       display: block;"> Files</a> <!--  add files URL -->>
+</div>
 
 <br></br>
 <div class="text-center">
