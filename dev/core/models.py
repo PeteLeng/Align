@@ -16,10 +16,14 @@ class File(models.Model):
 
 class Tag(models.Model):
     name = models.CharField("tag name", max_length=32)
-    is_proj = models.BooleanField("project tag", default=False)
-    is_act = models.BooleanField("action tag", default=False)
-    is_file = models.BooleanField("file tag", default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # is_proj = models.BooleanField("project tag", default=False)
+    # is_act = models.BooleanField("action tag", default=False)
+    # is_file = models.BooleanField("file tag", default=False)
     # is_proj, is_act, and is_file cannot all be false
+
+    def __str__(self):
+        return self.name
     
     
 class Project(models.Model):
@@ -60,6 +64,9 @@ class Project(models.Model):
             return ", ".join(tag_list[:3]) + "..."
         else:
             return " ".join(tag_list)
+
+    def __str__(self):
+        return self.description[:20]
     
     
 class Action(models.Model):
@@ -94,4 +101,7 @@ class Action(models.Model):
             return ", ".join(tag_list[:3]) + "..."
         else:
             return " ".join(tag_list)
+
+    def __str__(self):
+        return self.description[:20]
     

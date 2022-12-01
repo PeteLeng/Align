@@ -5,9 +5,10 @@
 
 <h1 style="text-align: left; padding-top: 1em; padding-bottom: 0em;">Open projects overview:</h1>
 <div style = "position:relative;
-    height: 15em;
-    overflow-y: auto;    
-    overflow-x: hidden;">
+	      height: 15em;
+	      width: 60em;
+	      overflow-y: auto;    
+	      overflow-x: auto;">
 
 <table class="table table-striped">
   <thead>
@@ -41,9 +42,10 @@
 <h1 style="text-align: left; padding-top: 1em; padding-bottom: 0em;">Closed projects overview:</h1>
 
 <div style = "position:relative;
-    height: 15em;
-    overflow-y: auto;    
-    overflow-x: hidden;">
+	      height: 15em;
+	      width: 60em;
+	      overflow-y: auto;    
+	      overflow-x: auto;">
   
 <table class="table table-striped">
   <thead>
@@ -60,7 +62,7 @@
     <tr>
       <th scope="row">{{ proj.id }}</th>
       <td>{{ proj.description }}</td>
-      <td>{{ proj.visibility }}</td>
+      <td>{{ proj.visibility|show_visibility }}</td>
       <td>{{ proj.get_user_str }}</td>
       <td>{{ proj.get_tag_str }}</td>
       <td>
@@ -76,6 +78,7 @@
 
 <br></br>
 <div class="text-center">
+  <a href="{% url 'proj-new' %}"><button type="button" class="btn btn-primary">New Project</button></a>
   <a href="{% url 'home' %}"><button type="button" class="btn btn-primary">Homepage</button></a>
 </div>
 

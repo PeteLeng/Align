@@ -16,5 +16,8 @@ urlpatterns = [
     path('act/<int:pk>/update/', views.ActionUpdateView.as_view(), name='act-update'),
     path('act/<int:pk>/delete/', views.ActionDeleteView.as_view(), name='act-delete'),
     path('files', views.FileListView.as_view(), name = 'files'),
+    path('tags', views.TagListView.as_view(), name='tags'),
+    path('tag/new/', views.TagCreateView.as_view(), name='tag-new'),
+    path('tag/<int:pk>/delete/', views.TagDeleteView.as_view(), name='tag-delete'),
 ]
 

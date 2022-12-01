@@ -12,8 +12,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 
-from .forms import NewUserForm, ProjectForm, ActionForm
-from .models import Project, Action, File
+from .forms import NewUserForm, ProjectForm, ActionForm, TagForm
+from .models import Project, Action, File, Tag
 
 
 # Create your views here.
@@ -163,6 +163,13 @@ class ProjectCreateView(CreateView):
     template_name = 'core/proj_new.html'
     success_url = reverse_lazy('home')
 
+    # https://medium.com/analytics-vidhya/django-how-to-pass-the-user-object-into-form-classes-ee322f02948c
+    # passing user to view form
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
 
 class ProjectUpdateView(UpdateView):
     model = Project
@@ -202,3 +209,33 @@ class ActionDeleteView(DeleteView):
     template_name = 'core/act_delete.html'
     success_url = reverse_lazy('home')
 
+
+class TagListView(View):
+    template_name = 'core/tag_list.html'
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        tag_set = Tag.objects.filter(user=user)
+        context = {
+            'tag_set': tag_set,
+            }
+        return render(request, self.template_name, context)
+
+
+class TagCreateView(CreateView):
+    form_class = TagForm
+    template_name = 'core/tag_new.html'
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        tag = form.save(commit=False)
+        tag.user = self.request.user
+        tag.save()
+        return redirect('home')
+
+
+class TagDeleteView(DeleteView):
+    model = Tag
+    template_name = 'core/tag_delete.html'
+    success_url = reverse_lazy('home')
+    

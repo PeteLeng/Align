@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load core_tags %}
+
+<h1 style="text-align: left; padding-top: 1em; padding-bottom: 0em;">User defined tags:</h1>
+<div style = "position:relative;
+    height: 15em;
+    overflow-y: auto;    
+    overflow-x: hidden;">
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">No.</th>
+      <th scope="col">Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for tag in tag_set %}
+    <tr>
+      <th scope="row">{{ tag.id }}</th>
+      <td>{{ tag.name }}</td>
+      <td>
+        <a style="margin-right: 30px;" href="{% url 'tag-delete' tag.id %}">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+
+<br></br>
+<div class="text-center">
+  <a style="margin-right: 30px;" href="{% url 'tag-new' %}"><button type="button" class="btn btn-primary">New tag</button></a>
+  <a href="{% url 'home' %}"><button type="button" class="btn btn-primary">Homepage</button></a>
+</div>
+
+{% endblock content %}
