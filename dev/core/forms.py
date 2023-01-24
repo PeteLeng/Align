@@ -28,15 +28,27 @@ class ProjectForm(ModelForm):
         fields = ('description', 'visibility', 'status', 'users', 'tags')
 
     def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request')
-        super().__init__(*args, **kwargs)
-        self.fields['tags'].queryset = Tag.objects.filter(user=self.request.user)
+        # request is passed in during create view, not update view
+        # updated
+        if 'request' in kwargs:
+            self.request = kwargs.pop('request')
+            super().__init__(*args, **kwargs)
+            self.fields['tags'].queryset = Tag.objects.filter(user=self.request.user)
+        else:
+            super().__init__(*args, **kwargs)
 
 
 class ActionForm(ModelForm):
     class Meta:
         model = Action
         fields = ('description', 'visibility', 'status', 'start_date', 'start_time', 'end_date', 'end_time', 'p_project', 'p_action', 'tags')
+
+    def __init__(self, *args, **kwargs):
+        # request is passed in during create view, not update view
+        # updated
+        self.request = kwargs.pop('request')
+        super().__init__(*args, **kwargs)
+        self.fields['tags'].queryset = Tag.objects.filter(user=self.request.user)
 
         
 class TagForm(ModelForm):

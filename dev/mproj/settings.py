@@ -95,14 +95,8 @@ WSGI_APPLICATION = 'mproj.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'align',
-        'USER': 'django',
-        'PASSWORD': 'mech',
-        'DEFAULT-CHARACTER-SET': 'utf8',
-        'OPTIONS': {
-            'init_command': 'SET default_storage_engine=INNODB',
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

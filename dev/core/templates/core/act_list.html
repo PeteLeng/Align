@@ -7,9 +7,9 @@
 
 <div style = "position:relative;
 	      height: 15em;
-	      width: 60em;
-	      overflow-y: auto;    
-	      overflow-x: auto;">
+	      width: 80em;
+	      overflow-y: auto;
+	      overflow-x: scroll;">
   
   <table class="table table-striped">
     <thead>
@@ -18,26 +18,26 @@
         <th scope="col">Description</th>
         <th scope="col">Visibility</th>
         <th scope="col">Tags</th>
-	<th scope="col">Parent project</th>
-        <th scope="col">Start Date</th>
-        <th scope="col">Start Time</th>
-        <th scope="col">End Date</th>
-        <th scope="col">End Time</th>
+	<th scope="col" nowrap="nowrap">Parent project</th>
+        <th scope="col" nowrap="nowrap">Start Date</th>
+        <th scope="col" nowrap="nowrap">Start Time</th>
+        <th scope="col" nowrap="nowrap">End Date</th>
+        <th scope="col" nowrap="nowrap">End Time</th>
       </tr>
     </thead>
     <tbody>
       {% for act in open_act_set %}
       <tr>
-	<th scope="row">{{ proj.id }}</th>
-	<td>{{ act.description }}</td>
+	<th scope="row">{{ act.id }}</th>
+	<td nowrap="nowrap">{{ act.description }}</td>
 	<td>{{ act.visibility|show_visibility }}</td>
-	<td>{{ act.get_tag_str }}</td>
+	<td nowrap="nowrap">{{ act.get_tag_str }}</td>
 	<td>{{ act.p_project }}</td>
-	<td>{{ act.start_date }}</td>
-	<td>{{ act.start_time }}</td>
-	<td>{{ act.end_date }}</td>
-	<td>{{ act.end_time }}</td>
-	<td>
+	<td nowrap="nowrap">{{ act.start_date }}</td>
+	<td nowrap="nowrap">{{ act.start_time }}</td>
+	<td nowrap="nowrap">{{ act.end_date }}</td>
+	<td nowrap="nowrap">{{ act.end_time }}</td>
+	<td nowrap="nowrap">
           <a style="margin-right: 30px;" href="{% url 'act-update' act.id %}">Edit</a>
           <a href="{% url 'act-delete' act.id %}">Remove</a> 
 	</td>

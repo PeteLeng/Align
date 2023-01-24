@@ -177,6 +177,11 @@ class ProjectUpdateView(UpdateView):
     template_name = 'core/proj_update.html'
     success_url = reverse_lazy('home')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
 
 class ProjectDeleteView(DeleteView):
     model = Project
@@ -196,12 +201,22 @@ class ActionCreateView(CreateView):
         form.save_m2m()
         return redirect('home')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
 
 class ActionUpdateView(UpdateView):
     model = Action
     form_class = ActionForm
     template_name = 'core/act_update.html'
     success_url = reverse_lazy('home')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
 
 
 class ActionDeleteView(DeleteView):
